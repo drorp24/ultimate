@@ -1,0 +1,16 @@
+{
+  "file": "File",
+  "fileId": "File details",
+  "userId": "User details",
+  "locations": "Text",
+  "dashboard": "Dashboard",
+  "lang": "Language",
+  "mode": "Mode",
+  "type": "Type",
+  "entity": "Entity",
+  "place": "Place",
+  "score": "Score",
+  "info": "Info",
+  "tag": "Tag",
+  "logout": "Log out"
+}
