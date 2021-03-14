@@ -1,4 +1,13 @@
 {
+  "schedule": "Schedule",
+  "username": "User name",
+  "usernameRequired": "User name is required",
+  "password": "Password",
+  "passwordRequired": "Password is required",
+  "rememberMe": "Remember me",
+  "signIn": "Sign In",
+  "forgotPassword": "Forgot password?",
+  "signUp": "Don't have an account yet? Sign up!",
   "file": "File",
   "fileId": "File details",
   "userId": "User details",

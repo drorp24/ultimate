@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchUser } from '../redux/users'
 
 import { useForm } from 'react-hook-form'
+import { FormattedMessage } from 'react-intl'
+import useTranslation from '../i18n/useTranslation'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
@@ -14,7 +16,7 @@ import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
-import cards from '../assets/illustration_cards_c.png'
+import ScheduleIcon from '@material-ui/icons/Schedule'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -25,21 +27,36 @@ const useStyles = makeStyles(theme => ({
   hero: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: theme.palette.secondary.main,
     color: 'white',
     padding: '10vw',
   },
   logo: {
-    height: '30vh',
+    '& > svg': {
+      fontSize: '8rem',
+    },
+  },
+  name: {
+    fontWeight: '100',
+    textTransform: 'lowercase',
+    fontSize: '2rem',
+    letterSpacing: '0.8rem',
+  },
+  formContainerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
   },
   formContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '10vw',
+    borderRadius: '4px',
+    padding: '1rem',
   },
   form: {
     maxWidth: '500px',
@@ -60,6 +77,7 @@ export default function Login() {
   const classes = useStyles()
   const { register, handleSubmit, errors } = useForm()
   const { state } = useLocation()
+  const t = useTranslation()
 
   const onSubmit = ({ username, password }) => {
     dispatch(fetchUser({ username, password }))
@@ -72,77 +90,83 @@ export default function Login() {
   return (
     <div className={classes.container}>
       <div className={classes.hero}>
-        <img className={classes.logo} src={cards} alt="cards" />
-        <Typography variant="h3">Puzzle</Typography>
+        <div className={classes.logo}>
+          <ScheduleIcon />
+        </div>
+        <Typography variant="h3" className={classes.name}>
+          Schedule
+        </Typography>
       </div>
 
-      <div className={classes.formContainer}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className={classes.form}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField
-            variant="standard"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="User name"
-            name="username"
-            autoComplete="username"
-            autoFocus
-            inputRef={register({ required: true })}
-            error={!!errors.username}
-            helperText={errors.username && 'User name is required'}
-          />
-          <TextField
-            variant="standard"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            inputRef={register({ required: true })}
-            error={!!errors.password}
-            helperText={errors.password && 'Password is required'}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
+      <div className={classes.formContainerContainer}>
+        <div className={classes.formContainer}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            <FormattedMessage id="signIn" />
+          </Typography>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={classes.form}
+            noValidate
+            autoComplete="off"
           >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+            <TextField
+              variant="standard"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label={t('username')}
+              name="username"
+              autoComplete="username"
+              autoFocus
+              inputRef={register({ required: true })}
+              error={!!errors.username}
+              helperText={errors.username && t('usernameRequired')}
+            />
+            <TextField
+              variant="standard"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label={t('password')}
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              inputRef={register({ required: true })}
+              error={!!errors.password}
+              helperText={errors.password && t('passwordRequired')}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label={t('rememberMe')}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              <FormattedMessage id="signIn" />
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  <FormattedMessage id="forgotPassword" />
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link disabled href="#" variant="body2">
+                  <FormattedMessage id="signUp" />
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   )

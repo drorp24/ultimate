@@ -2,12 +2,13 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleDrawer, toggleLocale, toggleMode } from '../redux/app'
+import { logout } from '../redux/users'
 import { useDirection } from '../utility/appUtilities'
 
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom'
 
 import Folder from '@material-ui/icons/FolderOpenOutlined'
-import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined'
+import ScheduleIcon from '@material-ui/icons/Schedule'
 import SwitchRightOutlinedIcon from '@material-ui/icons/SwitchRightOutlined'
 import DarkModeOutlinedIcon from '@material-ui/icons/DarkModeOutlined'
 import LightModeOutlinedIcon from '@material-ui/icons/LightModeOutlined'
@@ -17,12 +18,12 @@ import Logout from '@material-ui/icons/PowerSettingsNewOutlined'
 import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
 
-import { useIntl } from 'react-intl'
+import useTranslation from '../i18n/useTranslation'
 
 import Page from '../layout/Page'
-import Dashboard from './Dashboard'
 import File from './File'
-import Locations from './Locations'
+import Schedule from '../schedule/Schedule'
+import Dashboard from './Dashboard'
 
 const Home = () => {
   const { url } = useRouteMatch()
@@ -33,8 +34,7 @@ const Home = () => {
   const [dir, setDir] = useState(direction)
   const rtl = dir === 'rtl'
   const ltr = dir === 'ltr'
-  const intl = useIntl()
-  const t = phrase => intl.formatMessage({ id: phrase })
+  const t = useTranslation()
 
   const drawerWidth = {}
   const routeWidth = {}
@@ -124,10 +124,10 @@ const Home = () => {
       title: t('file'),
     },
     {
-      path: 'locations',
-      component: <Locations />,
-      icon: <ChatOutlinedIcon />,
-      title: t('locations'),
+      path: 'schedule',
+      component: <Schedule />,
+      icon: <ScheduleIcon />,
+      title: t('schedule'),
     },
     {
       path: 'dashboard',
@@ -143,7 +143,7 @@ const Home = () => {
       icon: <SwitchRightOutlinedIcon />,
       onClick: () => {
         setDir(dir => (dir === 'ltr' ? 'rtl' : 'ltr'))
-        setTimeout(() => dispatch(toggleLocale()), 0)
+        setTimeout(() => dispatch(toggleLocale()), 500)
       },
       title: t('lang'),
     },
@@ -158,7 +158,7 @@ const Home = () => {
     {
       key: 'logout',
       icon: <Logout />,
-      onClick: () => {},
+      onClick: () => dispatch(logout()),
       title: t('logout'),
     },
   ]

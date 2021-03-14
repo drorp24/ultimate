@@ -11,6 +11,8 @@ const styles = {
   }),
 }
 
-const File = () => <div css={styles.root}>{useTranslation()('file')}</div>
+const Schedule = () => (
+  <div css={styles.root}>{useTranslation()('schedule')}</div>
+)
 
-export default File
+export default Schedule

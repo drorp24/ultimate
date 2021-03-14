@@ -16,7 +16,6 @@ import { useDirection } from './utility/appUtilities'
 import ProtectedRoute from './auth/ProtectedRoute'
 import Login from './auth/Login'
 import Home from './routes/Home'
-import Editor from './editor/Editor'
 
 import Direction from './layout/Direction'
 import Snackbar from './communication/Snackbar'
@@ -57,14 +56,11 @@ export default function App() {
                   <ProtectedRoute exact path="/">
                     <Redirect to="/home" />
                   </ProtectedRoute>
-                  <Route path="/home">
+                  <ProtectedRoute path="/home">
                     <Home />
-                  </Route>
+                  </ProtectedRoute>
                   <Route path="/login">
                     <Login />
-                  </Route>
-                  <Route path="/editor">
-                    <Editor />
                   </Route>
                   <Route path="/simulateerror">
                     <SimulateError />

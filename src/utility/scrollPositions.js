@@ -1,6 +1,6 @@
-const atScrollBottom = el =>
-  el.offsetHeight + el.scrollTop >= el.scrollHeight - 2
+const epsilon = 2
 
-const atScrollTop = el => el.scrollTop < 2
+export const atScrollBottom = ({ offsetHeight, scrollTop, scrollHeight }) =>
+  offsetHeight + scrollTop >= scrollHeight - epsilon
 
-export { atScrollBottom, atScrollTop }
+export const atScrollTop = ({ scrollTop }) => scrollTop < epsilon

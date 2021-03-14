@@ -5,5 +5,4 @@ const isOverflown = ({
   scrollHeight,
 }) => scrollHeight > clientHeight || scrollWidth > clientWidth
 
-window.isOverflown = isOverflown
 export default isOverflown

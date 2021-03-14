@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import useTranslation from '../i18n/useTranslation'
 
 const styles = {
   root: theme => ({
@@ -10,6 +11,8 @@ const styles = {
   }),
 }
 
-const Dashboard = () => <div css={styles.root}>Dashboard</div>
+const Dashboard = () => (
+  <div css={styles.root}>{useTranslation()('dashboard')}</div>
+)
 
 export default Dashboard
