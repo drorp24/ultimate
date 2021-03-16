@@ -73,6 +73,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Login() {
   const loggedIn = useSelector(store => !!store.users.loggedIn.username)
+  const { mode } = useSelector(store => store.app)
   const dispatch = useDispatch()
   const classes = useStyles()
   const { register, handleSubmit, errors } = useForm()
@@ -98,7 +99,12 @@ export default function Login() {
         </Typography>
       </div>
 
-      <div className={classes.formContainerContainer}>
+      <div
+        className={classes.formContainerContainer}
+        style={{
+          backgroundColor: mode === 'light' ? 'rgba(0, 0, 0, 0.1)' : 'darkgrey',
+        }}
+      >
         <div className={classes.formContainer}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />

@@ -47,13 +47,18 @@ const Home = () => {
   const greyShade = '600'
 
   const styles = {
-    root: {
+    root: theme => ({
       display: 'flex',
-    },
+      background: theme.palette.background.default,
+    }),
     drawer: {
       width: open ? drawerWidth.open : drawerWidth.close,
       transition: 'width 0.5s',
       backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      overflow: 'hidden',
+    },
+    link: {
+      textDecoration: 'none',
     },
     chevronItem: theme => ({
       display: 'flex',
@@ -105,6 +110,7 @@ const Home = () => {
     }),
     title: {
       margin: '0 2px',
+      fontSize: direction === 'rtl' ? '1.2rem' : 'inherit',
     },
     route: {
       width: open ? routeWidth.open : routeWidth.close,
@@ -139,7 +145,6 @@ const Home = () => {
   const toggles = [
     {
       key: 'lang',
-      title: 'Language',
       icon: <SwitchRightOutlinedIcon />,
       onClick: () => {
         setDir(dir => (dir === 'ltr' ? 'rtl' : 'ltr'))
@@ -149,7 +154,6 @@ const Home = () => {
     },
     {
       key: 'mode',
-      title: 'Mode',
       icon:
         mode === 'light' ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />,
       onClick: () => dispatch(toggleMode()),
